@@ -62,6 +62,16 @@ function __bobthefish_hg_branch -S -d 'Get the current hg branch'
   echo "$__bobthefish_branch_glyph $branch @ $book"
 end
 
+function __bobthefish_full_path -S -a current_dir -d 'Print the full path with the home directory abbreviated'
+  # http://stackoverflow.com/questions/33714385/how-do-you-change-fish-pwd-length-in-prompt-using-fish-prompt-pwd-dir-length
+  set -q fish_prompt_pwd_dir_length; or set -l fish_prompt_pwd_dir_length 1
+
+  if [ $fish_prompt_pwd_dir_length -eq 0 ]
+    set -l fish_prompt_pwd_dir_length 99999
+  end
+  echo -n $current_dir | sed -e 's#/private##' -e "s#^$HOME#~#" -e 's-\([^/.]{'"$fish_prompt_pwd_dir_length"'}\)[^/]*/-\1/-g'
+end
+
 function __bobthefish_pretty_parent -S -a current_dir -d 'Print a parent directory, shortened to fit the prompt'
   echo -n (dirname $current_dir) | sed -e 's#/private##' -e "s#^$HOME#~#" -e 's#/\(\.\{0,1\}[^/]\)\([^/]*\)#/\1#g' -e 's#/$##'
 end
@@ -206,8 +216,12 @@ function __bobthefish_path_segment -S -a current_dir -d 'Display a shortened for
     case "$HOME"
       set directory '~'
     case '*'
-      set parent    (__bobthefish_pretty_parent "$current_dir")
-      set parent    "$parent/"
+      if [ "$theme_display_full_path" = 'yes' ]
+        set parent    ""
+      else
+        set parent    (__bobthefish_pretty_parent "$current_dir")
+        set parent    "$parent/"
+      end
       set directory (basename "$current_dir")
   end
 
@@ -682,6 +696,11 @@ function fish_prompt -d 'bobthefish, a fish theme optimized for awesome'
 
   # Start each line with a blank slate
   set -l __bobthefish_current_bg
+
+  if [ "$theme_display_full_path" = 'yes' ]
+    set_color fff
+    __bobthefish_full_path $PWD
+  end
 
   __bobthefish_prompt_status $last_status
   __bobthefish_prompt_vi
