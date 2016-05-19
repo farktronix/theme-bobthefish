@@ -323,9 +323,9 @@ function __bobthefish_prompt_status -S -a last_status -d 'Display symbols for a 
     and set bg_jobs $__bobthefish_bg_job_glyph
 
   if [ "$nonzero" -o "$superuser" -o "$bg_jobs" ]
-    __bobthefish_start_segment fff 000
+    __bobthefish_start_segment f00 000
     if [ "$nonzero" ]
-      set_color $__bobthefish_med_red --bold
+      set_color fff --bold
       if [ "$theme_show_exit_status" = 'yes' ]
       	echo -ns $last_status ' '
       else
@@ -416,11 +416,11 @@ function __bobthefish_prompt_git -S -a current_dir -d 'Display the actual git st
   [ "$flags" ]
     and set flags " $flags"
 
-  set -l flag_bg $__bobthefish_lt_green
-  set -l flag_fg $__bobthefish_dk_green
+  set -l flag_bg $__bobthefish_dk_green
+  set -l flag_fg fff
   if [ "$dirty" -o "$staged" ]
-    set flag_bg $__bobthefish_med_red
-    set flag_fg fff
+    set flag_bg $__bobthefish_med_green
+    set flag_fg $__bobthefish_dk_red
   else if [ "$stashed" ]
     set flag_bg $__bobthefish_lt_orange
     set flag_fg $__bobthefish_dk_orange
