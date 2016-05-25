@@ -29,6 +29,7 @@
 #     set -g theme_display_vi yes
 #     set -g theme_display_vi_hide_mode default
 #     set -g theme_avoid_ambiguous_glyphs yes
+#     set -g theme_powerline_fonts no
 #     set -g theme_nerd_fonts yes
 #     set -g theme_show_exit_status yes
 #     set -g default_user your_normal_user
@@ -416,12 +417,12 @@ function __bobthefish_prompt_git -S -a current_dir -d 'Display the actual git st
   [ "$flags" ]
     and set flags " $flags"
 
-  set -l flag_bg $__bobthefish_dk_green
-  set -l flag_fg fff
-  if [ "$dirty" -o "$staged" ]
-    set flag_bg $__bobthefish_med_green
-    set flag_fg $__bobthefish_dk_red
-  else if [ "$stashed" ]
+  set -l flag_bg $__bobthefish_lt_green
+  set -l flag_fg $__bobthefish_dk_green
+  if [ "$dirty" ]
+    set flag_bg $__bobthefish_med_red
+    set flag_fg fff
+  else if [ "$staged" ]
     set flag_bg $__bobthefish_lt_orange
     set flag_fg $__bobthefish_dk_orange
   end
@@ -612,6 +613,8 @@ function __bobthefish_show_ruby -S -d 'Current Ruby (rvm/rbenv)'
       or set global_ruby_version system
 
     [ "$ruby_version" = "$global_ruby_version" ]; and return
+  else if type -q chruby
+    set ruby_version $RUBY_VERSION
   end
   [ -z "$ruby_version" ]; and return
   __bobthefish_start_segment $__bobthefish_ruby_red $__bobthefish_lt_grey --bold
@@ -640,6 +643,16 @@ function fish_prompt -d 'bobthefish, a fish theme optimized for awesome'
   set -l __bobthefish_right_arrow_glyph       \uE0B1
   set -l __bobthefish_left_black_arrow_glyph  \uE0B2
   set -l __bobthefish_left_arrow_glyph        \uE0B3
+
+  if [ "$theme_powerline_fonts" = "no" ]
+    set __bobthefish_branch_glyph            \u2387
+    set __bobthefish_ln_glyph                ''
+    set __bobthefish_padlock_glyph           ''
+    set __bobthefish_right_black_arrow_glyph ''
+    set __bobthefish_right_arrow_glyph       ''
+    set __bobthefish_left_black_arrow_glyph  ''
+    set __bobthefish_left_arrow_glyph        ''
+  end
 
   # Additional glyphs
   set -l __bobthefish_detached_glyph          \u27A6

@@ -4,7 +4,7 @@
 
 [![Oh My Fish](https://img.shields.io/badge/Framework-Oh_My_Fish-blue.svg?style=flat)](https://github.com/oh-my-fish/oh-my-fish) [![MIT License](https://img.shields.io/github/license/oh-my-fish/theme-bobthefish.svg?style=flat)](/LICENSE.md) [![Slack Status](https://oh-my-fish-slack.herokuapp.com/badge.svg)](https://oh-my-fish-slack.herokuapp.com)
 
-![bobthefish][screenshot]
+![bobthefish][screencast]
 
 ### Installation
 
@@ -12,7 +12,10 @@ Be sure to have Oh My Fish installed. Then just:
 
     omf install bobthefish
 
-You will probably need a [Powerline-patched font][patching] for this to work.
+You will need a [Powerline-patched font][patching] for this to work, unless you enable the compatibility fallback option:
+
+    set -g theme_powerline_fonts no
+
 [I recommend picking one of these][fonts]. For more advanced awesome, install a [nerd fonts patched font][nerd-fonts], and enable nerd fonts support:
 
     set -g theme_nerd_fonts yes
@@ -38,7 +41,7 @@ This theme is based loosely on [agnoster][agnoster].
  * Current vi mode
      * _You'll need to `set -g theme_display_vi yes` to enable_
  * `User@Host` (unless you're the default user)
- * Current RVM or rbenv (Ruby) version
+ * Current RVM, rbenv or chruby (Ruby) version
  * Current virtualenv (Python) version
      * _If you use virtualenv, you will probably need to disable the default virtualenv prompt, since it doesn't play nice with fish: `set -x VIRTUAL_ENV_DISABLE_PROMPT 1`_
  * Abbreviated parent directory
@@ -76,6 +79,7 @@ set -g theme_title_display_path no
 set -g theme_title_use_abbreviated_path no
 set -g theme_date_format "+%a %H:%M"
 set -g theme_avoid_ambiguous_glyphs yes
+set -g theme_powerline_fonts no
 set -g theme_nerd_fonts yes
 set -g theme_show_exit_status yes
 set -g default_user your_normal_user
@@ -94,7 +98,7 @@ set -g default_user your_normal_user
 - `theme_git_worktree_support`. If you do any git worktree shenanigans, setting this to `yes` will fix incorrect project-relative path display. If you don't do any git worktree shenanigans, leave it disabled. It's faster this way :)
 
 [fish]:       https://github.com/fish-shell/fish-shell
-[screenshot]: https://cloud.githubusercontent.com/assets/53660/14413486/a5300f2c-ff30-11e5-9852-dd0643834a40.gif
+[screencast]: https://cloud.githubusercontent.com/assets/53660/15454890/5649a9a6-1ff9-11e6-9bab-ac1f9278f0cb.gif
 [patching]:   https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 [fonts]:      https://github.com/Lokaltog/powerline-fonts
 [nerd-fonts]: https://github.com/ryanoasis/nerd-fonts
