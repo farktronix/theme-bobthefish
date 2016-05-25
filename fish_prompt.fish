@@ -417,8 +417,8 @@ function __bobthefish_prompt_git -S -a current_dir -d 'Display the actual git st
   [ "$flags" ]
     and set flags " $flags"
 
-  set -l flag_bg $__bobthefish_lt_green
-  set -l flag_fg $__bobthefish_dk_green
+  set -l flag_bg $__bobthefish_med_green
+  set -l flag_fg fff
   if [ "$dirty" ]
     set flag_bg $__bobthefish_med_red
     set flag_fg fff
